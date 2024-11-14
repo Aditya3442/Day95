@@ -1,0 +1,38 @@
+class Solution {
+    public static boolean dist(int x, int[] quant, int n) {
+        int j = 0;
+        int rem= quant[j];
+        for (int i = 0; i < n; i++) {
+            if (rem<= x) {
+                j++;
+                if (j == quant.length) {
+                    return true;
+                } else {
+                    rem= quant[j];
+                }
+            } else {
+                rem-= x;
+            }
+        }
+        return false;
+    }
+
+    public int minimizedMaximum(int n, int[] quantities) {
+        int l= 0;
+        int r= 0;
+        for (int q: quantities) {
+            if (q> r) {
+                r= q;
+            }
+        }
+        while (l<r) {
+            int m= (l+r) / 2;
+            if (dist(m, quantities, n)) {
+                r= m;
+            } else {
+                l= m+ 1;
+            }
+        }
+        return l;
+    }
+}
